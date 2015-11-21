@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    </head>
+    <body ng-app="competitionMagic" ng-init="pagina='views/home.html'">
+        <nav ng-include="'menu.html'" id="menu"></nav>
+        <div id="conteudo" ng-include="pagina"></div>
+        <script src="js/angular.min.js"></script>
+        <script src="controller/loginController.js"></script>
+    </body>
+</html>

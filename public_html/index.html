@@ -1,16 +1,38 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Competition Magic</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/estilo.css">
+        <style>
+            body{
+                background: #E84040;
+            }
+            
+            #conteudo{
+                position: absolute; 
+                left: 50%; 
+                top: 50%; 
+                margin-top: -200px; 
+                margin-left: -250px;
+            }
+        </style>
     </head>
     <body>
-        <div>TODO write content</div>
+        <div id="conteudo">
+            <div id="logo-login">
+                <img src="img/logo.png">
+            </div>
+            <form>
+                <label>Usuário</label>
+                <input type="text" class="control">
+                
+                <label>Senha</label>
+                <input type="password" class="control">
+                
+                <input type="submit" class="btn" value="Entrar">
+            </form>
+        </div>
     </body>
 </html>

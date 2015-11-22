@@ -1,0 +1,11 @@
+<form class="form-login" ng-submit="validaLogin(login)" ng-hide="usuarioLogado">
+    <h1><img src="img/logo.png"> Competition Magic</h1>
+    <label for="usuario">Usuário</label>
+    <input type="text" class="control" ng-model="login.usuario" size="15" required id="usuario">
+    
+    <label for="senha">Senha</label>
+    <input type="password" class="control" ng-model="login.senha" size="10" required id="senha">
+
+    <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-user"></i> Login</button>
+    <div id="erro"></div>
+</form>

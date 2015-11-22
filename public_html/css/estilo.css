@@ -28,6 +28,11 @@ h1 {
     color: #999;
 }
 
+h1 img {
+    width: 30px;
+    margin: 0 10px;
+}
+
 #conteudo {
     max-width: 1024px;
     height: 400px;
@@ -143,4 +148,35 @@ h1 {
 .ranking-table tbody tr:nth-child(odd) td {
     background: #ECECEC;
     color: #999;
+}
+
+form.form-login {
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -200px;
+    border: 1px solid #DDD;
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 3px solid #e84040;
+}
+
+.form-login label {
+    margin: 10px 0;
+    display: block;
+    color: #d03f3f;
+    font-size: 20px;
+}
+
+#erro {
+    padding: 20px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    border-left: 3px solid #e84040;
+    color: #d03f3f;
+    display: none;
 }

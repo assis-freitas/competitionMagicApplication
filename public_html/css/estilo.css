@@ -68,6 +68,7 @@ h1 img {
 }
 
 .btn {
+    text-decoration: none;
     border: 1px solid #E84040;
     padding: 5px 20px;
     margin: 10px 0;

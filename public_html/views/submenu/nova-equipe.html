@@ -1,0 +1,13 @@
+<h1>Nova Equipe</h1>
+
+<form ng-submit="adicionaEquipe(equipe)" ng-init="carregaCompeticoes()">
+    <label>Competição</label>
+    <select ng-model="equipe.competicao" ng-options="competicao.descricao for competicao in competicoes" class="control"></select>
+    
+    <label>Nome da equipe</label>
+    <input type="text" class="control" ng-model="equipe.nome">
+    
+    <input type="submit" value="Cadastrar" class="btn">
+</form>
+
+<div id="erro"></div>

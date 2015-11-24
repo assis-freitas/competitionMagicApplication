@@ -51,7 +51,7 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                 $http.get(urlBase + "/login/" + login.usuario + "/" + login.senha)
                         .success(function (data) {
                             if (data === true) {
-                                var urlInicial = "http://" + $window.location.host + "/competicao/#/dashboard";
+                                var urlInicial = "http://" + $window.location.host + "/competitionMagicApplication/#/dashboard";
                                 $window.location.href = urlInicial;
                                 $window.location;                                
                                 $rootScope.usuarioLogado = true;

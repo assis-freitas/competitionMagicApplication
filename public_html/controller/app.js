@@ -99,8 +99,17 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
             };
             
             function getCompeticoes() {
-                $http.get(urlBase + "/competicoes")
+                $http.get(urlBase + "/competicoes/")
                      .success(function (data) {
+                        $scope.competicoes = [];
+                        angular.forEach(data, function(competicao, index){
+                            angular.forEach(competicao.usuarios, function(usuario, index2){
+                                if(usuario.login === Configuracoes.nomeUsuario){
+                                    $scope.competicoes.push(competicao);
+                                    return;
+                                }
+                            });
+                        });
                         $scope.competicoes = data;
                      })
                      .error(function () {

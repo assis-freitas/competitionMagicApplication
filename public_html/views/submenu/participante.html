@@ -1,0 +1,21 @@
+<h1>Participantes</h1>
+<a href="#/participante/novo/" class="btn">Novo Participante</a>
+<br>
+<table class="ranking-table" ng-init="carregaParticipantes();">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Equipe</th>
+            <th>Opções</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="participante in participantes track by $index">
+            <td>{{ participante.nome }}</td>
+            <td>{{ participante.equipe.nome }}</td>
+            <td>
+                <button ng-click="apagaParticipante(participante.cpf)" class="btn">Excluir</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

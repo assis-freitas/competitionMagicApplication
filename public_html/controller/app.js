@@ -21,6 +21,18 @@ var app = angular.module("competitionMagic", ['angularUtils.directives.dirPagina
                         return usuarioLogado;
                     }
                 })
+                .when('/participante', {
+                    templateUrl: 'views/submenu/participante.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
+                .when('/participante/novo', {
+                    templateUrl: 'views/submenu/novo-participante.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
                 .when('/', {
                     templateUrl: 'views/login.html'
                 })
@@ -166,7 +178,7 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
             };
             
             function getEquipes() {
-                $http.get(urlBase + "/equipes")
+                $http.get(urlBase + "/equipes/2")
                      .success(function (data) {
                         $scope.equipes = data;
                      })
@@ -209,6 +221,63 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                     }
                     ;
                     getEquipes();
+                });
+            };
+            
+            /* 
+             *  ======================================== PARTICIPANTES ===============================================================
+             *
+             *  
+             */
+            
+            $scope.carregaParticipantes = function () {
+                getParticipantes(); 
+            };
+            
+            function getParticipantes() {
+                $http.get(urlBase + "/participantes/")
+                     .success(function (data) {
+                        $scope.participantes = data;
+                     })
+                     .error(function () {
+                        console.log('Erro ao obter os dados dos participantes');
+                        $scope.participantes = "ERRO ao efetuar o SELECT!";
+                     });    
+            };
+            
+            $scope.adicionaParticipante = function (participante) {
+                $http.post(urlBase + "/participantes", participante).success(function (data) {                   
+                    console.info(JSON.stringify("Participante inscrito com sucesso : " + data));
+                    getParticipantes();                          
+                }).error(function (error) {
+                    console.error(JSON.stringify("Erro ao inscrever um participante : " + error));
+                    alert(JSON.stringify("Erro ao inscrever um participante : " + error));
+                });
+            };
+
+            $scope.apagaParticipante = function (codigo) {
+                if (confirm("Realmente deseja excluir este participante?")) {
+                    $http.delete(urlBase + "/participantes/" + codigo).success(function (data) {
+                        if (data !== true) {
+                            console.error("Erro ao excluir um participante: " + data);
+                            alert("Erro ao excluir um participantee: " + data);
+                        } else {
+                            console.info("Participante removido com sucesso");
+                        }
+                        getParticipantes();
+                    });
+                }
+            };
+            
+            $scope.alteraParticipante = function (participante) {
+                $http.put(urlBase + "/equipes/" + participante.codigo, participante).success(function (data) {
+                    if (data !== true) {
+                        console.error("Erro ao alterar um participante: " + data);
+                    } else {
+                        console.info("Participante " + equipe.nome + " alterado com sucesso!");
+                    }
+                    ;
+                    getParticipantes();
                 });
             };
 });

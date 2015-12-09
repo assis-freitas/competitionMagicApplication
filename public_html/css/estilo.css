@@ -34,7 +34,7 @@ h1 img {
 }
 
 #conteudo {
-    max-width: 1024px;
+    width: 100%;
     height: 400px;
     background: #FFF;
     padding: 20px;
@@ -181,4 +181,64 @@ form.form-login {
     border-left: 3px solid #e84040;
     color: #d03f3f;
     display: none;
+}
+
+.partidas {
+    width: 100%;
+    display: block;
+    margin: 20px 0;
+}
+
+.partidas .partida {
+    width: calc(50% - 10px);
+    height: 150px;
+    line-height: 110px;
+    padding: 20px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    position: relative;
+    font-size: 23px;
+    text-align: center;
+    display: inline-block;
+    margin: 5px;
+}
+
+.partidas .partida .rodada {
+    line-height: normal;
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    background: #E84040;
+    color: #FFF;
+    border-top-right-radius: 4px;
+}
+
+.partidas .partida .placar {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 5px;
+    background: #E84040;
+    border-radius: 3px;
+}
+
+.partidas .partida .competicao {
+    line-height: normal;
+    position: absolute;
+    left: 0;
+    bottom: 25px;
+    text-align: center;
+    width: 100%;
+    color: #999;
+    font-style: italic;
+    font-size: 16px;
+}
+
+.partidas .partida .opcoes {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    line-height: normal;
 }

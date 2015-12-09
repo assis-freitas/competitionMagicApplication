@@ -1,0 +1,23 @@
+<h1>Nova Partida</h1>
+
+<form method="post" ng-submit="adicionaPartida(partida)" ng-init="carregaCompeticoes();">
+    <label>Competição</label>
+    <select class="control" ng-model="partida.competicao" ng-options="competicao.descricao for competicao in competicoes" ng-change="carregaEquipesByCompeticao(partida.competicao);"></select>
+    
+    <label>Rodada</label>
+    <input type="number" min="1" class="control" ng-model="partida.rodada">
+    
+    <label>Equipe A</label>
+    <select class="control" ng-model="partida.equipeA" ng-options="equipe.nome for equipe in equipes"></select>
+    
+    <label>Placar A</label>
+    <input type="number" min="0" class="control" ng-model="partida.placarA">
+    
+    <label>Equipe B</label>
+    <select class="control" ng-model="partida.equipeB" ng-options="equipe.nome for equipe in equipes"></select>
+    
+    <label>Placar B</label>
+    <input type="number" min="0" class="control" ng-model="partida.placarB">
+    
+    <input type="submit" class="btn" value="Adicionar Partida">
+</form>

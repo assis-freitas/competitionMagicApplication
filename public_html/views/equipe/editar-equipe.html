@@ -1,0 +1,15 @@
+<h1>Editar Equipe</h1>
+
+<form ng-submit="alteraEquipe(equipe)" ng-init="carregaCompeticoes(); carregaEquipes();">
+    <label>Equipe</label>
+    <select ng-model="equipe" ng-options="equipe.nome for equipe in equipes" class="control"></select>
+    
+    <div ng-show="equipe">
+        <label>Nome da equipe</label>
+        <input type="text" class="control" ng-model="equipe.nome">
+
+        <input type="submit" value="Alterar" class="btn">
+    </div>
+</form>
+
+<div id="erro"></div>

@@ -1,0 +1,15 @@
+<h1>Partidas</h1>
+<a href="#/partida/novo/" class="btn">Nova Partida</a>
+<a href="#/partida/editar/" class="btn">Editar Partida</a>
+<button class="btn" ng-click="opcoes=!opcoes">Opções</button>
+<br>
+<div class="partidas" ng-init="carregaPartidas(); opcoes = false;">
+    <div class="partida" ng-repeat="partida in partidas track by $index">
+        <div class="rodada">{{ partida.rodada }}ª Rodada</div>
+        <p>{{ partida.equipeA.nome }} <span class="placar">{{partida.placarA}}</span> vs <span class="placar">{{partida.placarB}}</span> {{partida.equipeB.nome}}</p>
+        <p class="competicao">{{ partida.competicao.descricao }}</p>
+        <div class="opcoes" ng-show="opcoes">
+            <button class="btn" ng-click="apagaPartida(partida.id)">Excluir</button>
+        </div>
+    </div>
+</div>

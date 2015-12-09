@@ -9,26 +9,68 @@ var app = angular.module("competitionMagic", ['angularUtils.directives.dirPagina
                 .when('/login', {
                     templateUrl: 'views/login.html'
                 })
+                .when('/competicao/novo', {
+                    templateUrl: 'views/competicao/nova-competicao.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
                 .when('/equipe', {
-                    templateUrl: 'views/submenu/equipe.html',
+                    templateUrl: 'views/equipe/equipe.html',
                     auth: function (usuarioLogado) {
                         return usuarioLogado;
                     }
                 })
                 .when('/equipe/novo', {
-                    templateUrl: 'views/submenu/nova-equipe.html',
+                    templateUrl: 'views/equipe/nova-equipe.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
+                .when('/equipe/editar', {
+                    templateUrl: 'views/equipe/editar-equipe.html',
                     auth: function (usuarioLogado) {
                         return usuarioLogado;
                     }
                 })
                 .when('/participante', {
-                    templateUrl: 'views/submenu/participante.html',
+                    templateUrl: 'views/participante/participante.html',
                     auth: function (usuarioLogado) {
                         return usuarioLogado;
                     }
                 })
                 .when('/participante/novo', {
-                    templateUrl: 'views/submenu/novo-participante.html',
+                    templateUrl: 'views/participante/novo-participante.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
+                .when('/participante/editar', {
+                    templateUrl: 'views/participante/editar-participante.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
+                .when('/partida', {
+                    templateUrl: 'views/partida/partida.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
+                .when('/partida/novo', {
+                    templateUrl: 'views/partida/nova-partida.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
+                .when('/partida/editar', {
+                    templateUrl: 'views/partida/editar-partida.html',
+                    auth: function (usuarioLogado) {
+                        return usuarioLogado;
+                    }
+                })
+                .when('/usuario/novo', {
+                    templateUrl: 'views/usuario/novo-usuario.html',
                     auth: function (usuarioLogado) {
                         return usuarioLogado;
                     }
@@ -99,6 +141,23 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                 $scope.Configuracoes.nomeUsuario = "";
             };
             
+            /*
+             * 
+             *  ====================================== USUÁRIO ===================================================================
+             * 
+             * 
+             */
+            
+            $scope.adicionaUsuario = function (usuario) {
+                usuario.status = 1;
+                $http.post(urlBase + "/usuarios", usuario).success(function (data) {                   
+                    alert(JSON.stringify("Usuário adicionado com sucesso "));
+                    getCompeticoes();                          
+                }).error(function (error) {
+                    console.error(JSON.stringify("Erro ao adicionar o usuário"));
+                    alert(JSON.stringify("Erro ao adicionar o usuário"));
+                });
+            };
             
             /* 
              *  ======================================== COMPETIÇÃO ===============================================================
@@ -107,7 +166,7 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
              */
             
             $scope.carregaCompeticoes = function () {
-                getCompeticoes(); 
+                getCompeticoes();
             };
             
             function getCompeticoes() {
@@ -132,7 +191,7 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
             
             $scope.adicionaCompeticao = function (competicao) {
                 $http.post(urlBase + "/competicoes", competicao).success(function (data) {                   
-                    console.info(JSON.stringify("Competição inscrita com sucesso : " + data));
+                    alert(JSON.stringify("Competição inscrita com sucesso : " + data));
                     getCompeticoes();                          
                 }).error(function (error) {
                     console.error(JSON.stringify("Erro ao inscrever a competição : " + error));
@@ -144,10 +203,9 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                 if (confirm("Realmente deseja excluir esta competição?")) {
                     $http.delete(urlBase + "/competicoes/" + codigo).success(function (data) {
                         if (data !== true) {
-                            console.error("Erro ao excluir a competição: " + data);
                             alert("Erro ao excluir a competição: " + data);
                         } else {
-                            console.info("Competição removida com sucesso");
+                            alert("Competição removida com sucesso");
                         }
                         getCompeticoes();
                     });
@@ -157,9 +215,9 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
             $scope.alteraCompeticao = function (competicao) {
                 $http.put(urlBase + "/competicoes/" + competicao.codigo, competicao).success(function (data) {
                     if (data !== true) {
-                        console.error("Erro ao alterar a competição: " + data);
+                        alert("Erro ao alterar a competição: " + data);
                     } else {
-                        console.info("Competição " + competicao.descricao + " alterada com sucesso!");
+                        alert("Competição " + competicao.descricao + " alterada com sucesso!");
                     }
                     ;
                     getCompeticoes();
@@ -177,24 +235,38 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                 getEquipes(); 
             };
             
+            $scope.carregaEquipesByCompeticao = function (competicao) {
+                getEquipesByCompeticao(competicao.id); 
+            };
+            
             function getEquipes() {
-                $http.get(urlBase + "/equipes/2")
+                $http.get(urlBase + "/equipes/")
                      .success(function (data) {
                         $scope.equipes = data;
                      })
                      .error(function () {
-                        console.log('Erro ao obter os dados da equipe');
+                        alert('Erro ao obter os dados da equipe');
+                        $scope.equipes = "ERRO ao efetuar o SELECT!";
+                     });    
+            };
+            
+            function getEquipesByCompeticao(codigo) {
+                $http.get(urlBase + "/equipes/competicao/"+codigo)
+                     .success(function (data) {
+                        $scope.equipes = data;
+                     })
+                     .error(function () {
+                        alert('Erro ao obter os dados da equipe');
                         $scope.equipes = "ERRO ao efetuar o SELECT!";
                      });    
             };
             
             $scope.adicionaEquipe = function (equipe) {
                 $http.post(urlBase + "/equipes", equipe).success(function (data) {                   
-                    console.info(JSON.stringify("Equipe inscrita com sucesso : " + data));
+                    alert(JSON.stringify("Equipe inscrita com sucesso : " + data));
                     getEquipes();                          
                 }).error(function (error) {
-                    console.error(JSON.stringify("Erro ao inscrever a equipe : " + error));
-                    alert(JSON.stringify("Erro ao inscrever a equipe: " + error));
+                    alert(JSON.stringify("Erro ao inscrever a equipe : " + error));
                 });
             };
 
@@ -202,10 +274,9 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                 if (confirm("Realmente deseja excluir esta equipe?")) {
                     $http.delete(urlBase + "/equipes/" + codigo).success(function (data) {
                         if (data !== true) {
-                            console.error("Erro ao excluir a equipe: " + data);
                             alert("Erro ao excluir a equipe: " + data);
                         } else {
-                            console.info("Equipe removida com sucesso");
+                            alert("Equipe removida com sucesso");
                         }
                         getEquipes();
                     });
@@ -215,11 +286,11 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
             $scope.alteraEquipe = function (equipe) {
                 $http.put(urlBase + "/equipes/" + equipe.codigo, equipe).success(function (data) {
                     if (data !== true) {
-                        console.error("Erro ao alterar a Equipe: " + data);
+                        alert("Erro ao alterar a Equipe: " + data);
                     } else {
-                        console.info("Equipe " + equipe.descricao + " alterada com sucesso!");
+                        alert("Equipe " + equipe.nome + " alterada com sucesso!");
                     }
-                    ;
+                    
                     getEquipes();
                 });
             };
@@ -240,17 +311,16 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                         $scope.participantes = data;
                      })
                      .error(function () {
-                        console.log('Erro ao obter os dados dos participantes');
+                        alert('Erro ao obter os dados dos participantes');
                         $scope.participantes = "ERRO ao efetuar o SELECT!";
                      });    
             };
             
             $scope.adicionaParticipante = function (participante) {
                 $http.post(urlBase + "/participantes", participante).success(function (data) {                   
-                    console.info(JSON.stringify("Participante inscrito com sucesso : " + data));
+                    alert(JSON.stringify("Participante inscrito com sucesso : " + data));
                     getParticipantes();                          
                 }).error(function (error) {
-                    console.error(JSON.stringify("Erro ao inscrever um participante : " + error));
                     alert(JSON.stringify("Erro ao inscrever um participante : " + error));
                 });
             };
@@ -259,10 +329,9 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
                 if (confirm("Realmente deseja excluir este participante?")) {
                     $http.delete(urlBase + "/participantes/" + codigo).success(function (data) {
                         if (data !== true) {
-                            console.error("Erro ao excluir um participante: " + data);
-                            alert("Erro ao excluir um participantee: " + data);
+                            alert("Erro ao excluir um participante: " + data);
                         } else {
-                            console.info("Participante removido com sucesso");
+                            alert("Participante removido com sucesso");
                         }
                         getParticipantes();
                     });
@@ -270,14 +339,69 @@ app.controller("competController", function ($scope, $http, $window, $rootScope,
             };
             
             $scope.alteraParticipante = function (participante) {
-                $http.put(urlBase + "/equipes/" + participante.codigo, participante).success(function (data) {
+                $http.put(urlBase + "/participantes/" + participante.codigo, participante).success(function (data) {
                     if (data !== true) {
-                        console.error("Erro ao alterar um participante: " + data);
+                        alert("Erro ao alterar um participante: " + data);
                     } else {
-                        console.info("Participante " + equipe.nome + " alterado com sucesso!");
+                        alert("Participante " + participante.nome + " alterado com sucesso!");
                     }
-                    ;
+                    
                     getParticipantes();
+                });
+            };
+            
+            /* 
+             *  ======================================== PARTIDA ===============================================================
+             *
+             *  
+             */
+            
+            $scope.carregaPartidas = function () {
+                getPartidas(); 
+            };
+            
+            function getPartidas() {
+                $http.get(urlBase + "/partidas/")
+                     .success(function (data) {
+                        $scope.partidas = data;
+                     })
+                     .error(function () {
+                        alert('Erro ao obter os dados das partidas');
+                        $scope.partidas = "ERRO ao efetuar o SELECT!";
+                     });    
+            };
+            
+            $scope.adicionaPartida = function (partida) {
+                $http.post(urlBase + "/partidas", partida).success(function (data) {                   
+                    alert(JSON.stringify("Partida inscrita com sucesso"));
+                    getPartidas();                          
+                }).error(function (error) {
+                    alert(JSON.stringify("Erro ao inscrever a partida : " + error));
+                });
+            };
+
+            $scope.apagaPartida = function (codigo) {
+                if (confirm("Realmente deseja excluir esta partida?")) {
+                    $http.delete(urlBase + "/partidas/" + codigo).success(function (data) {
+                        if (data !== true) {
+                            alert("Erro ao excluir a partida: " + data);
+                        } else {
+                            alert("Partida removida com sucesso");
+                        }
+                        getPartidas();
+                    });
+                }
+            };
+            
+            $scope.alteraPartida = function (partida) {
+                $http.put(urlBase + "/partidas/" + partida.codigo, partida).success(function (data) {
+                    if (data !== true) {
+                        alert("Erro ao alterar a partida: " + data);
+                    } else {
+                        alert("Partida alterado com sucesso!");
+                    }
+                    
+                    getPartidas()();
                 });
             };
 });

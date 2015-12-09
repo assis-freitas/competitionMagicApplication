@@ -1,0 +1,14 @@
+<h1>Novo Usuário</h1>
+
+<form method="post" ng-submit="adicionaUsuario(usuario)">
+    <label>Login</label>
+    <input type="text" ng-model="usuario.login" class="control">
+    
+    <label>Senha</label>
+    <input type="password" ng-model="usuario.senha" class="control">
+    
+    <label>Confirmar Senha</label>
+    <input type="password" ng-model="confirmarSenha" class="control">
+    
+    <input type="submit" class="btn" value="Adicionar" ng-show="usuario.senha === confirmarSenha">
+</form>

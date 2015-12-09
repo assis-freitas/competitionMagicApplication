@@ -1,0 +1,26 @@
+<h1>Editar Partida</h1>
+
+<form method="post" ng-submit="alteraPartida(partida)" ng-init="carregaCompeticoes(); carregaPartidas();">
+    
+    <label>Partida</label>
+    <select class="control" ng-model="partida" ng-options="partida.competicao.descricao + '- rodada ' + partida.rodada + ' ' + partida.equipeA.nome + ' vs ' + partida.equipeB.nome for partida in partidas" ng-change="carregaEquipesByCompeticao(partida.competicao);"></select>
+    
+    <div ng-show="partida">
+        <label>Rodada</label>
+        <input type="number" min="1" class="control" ng-model="partida.rodada">
+
+        <label>Equipe A</label>
+        <select class="control" ng-model="partida.equipeA" ng-options="equipe.nome for equipe in equipes"></select>
+
+        <label>Placar A</label>
+        <input type="number" min="0" class="control" ng-model="partida.placarA">
+
+        <label>Equipe B</label>
+        <select class="control" ng-model="partida.equipeB" ng-options="equipe.nome for equipe in equipes"></select>
+
+        <label>Placar B</label>
+        <input type="number" min="0" class="control" ng-model="partida.placarB">
+
+        <input type="submit" class="btn" value="Alterar Partida">
+    </div>
+</form>

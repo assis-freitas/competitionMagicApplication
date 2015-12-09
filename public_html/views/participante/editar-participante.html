@@ -1,0 +1,35 @@
+<h1>Editar Participante</h1>
+
+<form ng-submit="alteraParticipante(participante)" ng-init="carregaEquipes(); carregaParticipantes();">
+    
+    <label>Participante</label>
+    <select ng-model="participante" ng-options="participante.nome for participante in participantes" class="control"></select>
+    
+    <div ng-show="participante">
+        <label>Equipe</label>
+        <select ng-model="participante.equipe" ng-options="equipe.nome for equipe in equipes" class="control"></select>
+
+        <label>CPF</label>
+        <input type="text" class="control" ng-model="participante.cpf">
+
+        <label>Nome</label>
+        <input type="text" class="control" ng-model="participante.nome">
+
+        <label>Cidade</label>
+        <input type="text" class="control" ng-model="participante.cidade">
+
+        <label>Bairro</label>
+        <input type="text" class="control" ng-model="participante.bairro">
+
+        <label>Rua</label>
+        <input type="text" class="control" ng-model="participante.rua">
+
+        <label>Número</label>
+        <input type="text" class="control" ng-model="participante.numero">
+
+        <input type="submit" value="Cadastrar" class="btn">
+    
+    </div>
+</form>
+
+<div id="erro"></div>
